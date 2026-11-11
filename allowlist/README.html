@@ -1,0 +1,76 @@
+<!DOCTYPE html []>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="MarkdownViewer++" />
+    <title>README.md</title>
+    <style type="text/css">
+            
+/* Avoid page breaks inside the most common attributes, especially for exports (i.e. PDF) */
+td, h1, h2, h3, h4, h5, p, ul, ol, li {
+    page-break-inside: avoid; 
+}
+
+        </style>
+  </head>
+  <body>
+    <h1 id="add-extension-crx-to-allowlist">将扩展（crx）加入白名单</h1>
+    <ul>
+      <li>
+        <a href="#windows">Windows</a>
+      </li>
+      <li>
+        <a href="#macos">macOS</a>
+      </li>
+      <li>
+        <a href="#linux">Linux</a>
+      </li>
+    </ul>
+    <h3 id="windows">Windows</h3>
+    <p>事先提醒：添加白名单策略后，扩展页面上会出现一条提示 <em>Your browser is managed by your organisation</em>（且部分设置（如安全 DNS）会被禁用）。<br />
+要移除该提示，你需要再次从注册表中删除所添加的策略（运行 regedit，并在 HKEY_LOCAL_MACHINE\SOFTWARE\Policies 中搜索公司/浏览器）。</p>
+    <p>如果你仍想将扩展加入白名单：</p>
+    <p>以管理员身份运行扩展的 allowlist 文件夹（解压后）中的一个 reg 文件。<br />
+* 对于 Edge 116+，你可能还需要运行 <em>Forcelist</em> reg 文件（同时提供了可撤销的 reg 文件），或改用 <em>加载解压版</em> 安装。<br />
+* 对于其他浏览器，请编辑 reg 文件（xml）：在注册表中查找浏览器路径</p>
+    <p>如果你已向白名单添加了扩展，则应将 "1" 改为新值（同时更改 HLM 键名以适配浏览器的 beta/开发者版本）。<br />
+要向白名单添加更多扩展，你可以增加更多行。<br />
+Chrome reg 文件示例：</p>
+    <p>
+      <code>Windows Registry Editor Version 5.00</code>
+      <br />
+      <code>[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome\ExtensionInstallAllowlist]</code>
+      <br />
+      <code>"1"="lkbebcjgcmobigpeffafkodonchffocl"</code>
+      <br />
+      <code>"2"="extension-id2"</code>
+    </p>
+    <p>你也可以以管理员身份运行 PowerShell 脚本 <em>bypass_paywalls_clean_allowlist.ps1</em> 来将扩展加入白名单（脚本会检查扩展是否已被允许，或添加新的注册表项）。<br />
+对于参数 browser，请输入 chrome、edge 或 brave。</p>
+    <p>* 对于其他浏览器，请编辑 mobileconfig 文件（xml）：更改 PayloadContent（及其他浏览器字符串）</p>
+    <h3 id="macos">macOS</h3>
+    <p>最简单的方式（针对 Chrome）：在终端中运行（无需管理员权限）。<br /><code>defaults write com.google.Chrome ExtensionInstallAllowlist -array "lkbebcjgcmobigpeffafkodonchffocl"</code></p>
+    <p>然后重启 Chrome（在 Dock 中：右键点击 Chrome，选择“退出”，重新打开），或打开 <code>chrome://policy</code> 并点击 <code>Reload policies</code>。<br />
+要允许更多扩展，请向数组中添加更多 id：<code>-array "lkbebcjgcmobigpeffafkodonchffocl" "extension-id2"</code>。<br />
+对于其他浏览器，请将 <code>com.google.Chrome</code> 替换为该浏览器的 bundle id（例如 com.microsoft.Edge 或 com.brave.Browser）。</p>
+    <p>或者，以管理员权限运行扩展的 allowlist 文件夹（解压后）中的一个 .mobileconfig 文件。<br />
+最后重启浏览器进程（在 Dock 中：右键点击 Chrome，选择“退出”，重新打开）。<br />
+这要求你的设备未被 MDM 软件管理，且你没有任何与 'ExtensionInstallAllowlist' 策略相关的、已生效的配置文件。<br />
+要向白名单添加更多扩展，你可以增加更多行。</p>
+    <p>
+      <code>&lt;key&gt;ExtensionInstallAllowlist&lt;/key&gt;</code>
+      <br />
+      <code>&lt;array&gt;</code>
+      <br />
+      <code>&lt;string&gt;lkbebcjgcmobigpeffafkodonchffocl&lt;/string&gt;</code>
+      <br />
+      <code>&lt;string&gt;extension-id2&lt;/string&gt;</code>
+      <br />
+      <code>&lt;/array&gt;</code>
+    </p>
+    <h3 id="linux">Linux</h3>
+    <p>
+      <a href="https://developer.chrome.com/docs/extensions/how-to/distribute#hosting">基于 Chromium 的浏览器允许本地安装扩展</a>
+    </p>
+  </body>
+</html>
