@@ -1,0 +1,26 @@
+# 操作系统生成的文件
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# 编辑器 / IDE 临时文件
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.bak
+*.tmp
+
+# 依赖与构建产物（本项目为纯静态扩展，无需提交）
+node_modules/
+dist/
+build/
+
+# 日志
+*.log
+
+# WorkBuddy 本地数据（不包含在项目内）
+.workbuddy/
