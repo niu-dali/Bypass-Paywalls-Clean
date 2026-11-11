@@ -1,7 +1,147 @@
-html, body {
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+/* ==========================================================================
+   opt-in.html 专属样式（仅此页面引用）
+   依赖 ../options_all.css 的设计令牌。
+   注意：opt-in.js 会在非 Chromium 环境写入
+   fetch_prompt.style = 'display: none'，这里不覆盖该元素的 display。
+   ========================================================================== */
+
+body { max-width: 720px; }
+
+/* 页头 */
+body > div:first-child {
+  margin-bottom: var(--bpc-sp-5);
+  padding-bottom: var(--bpc-sp-3);
+  border-bottom: 1px solid var(--bpc-border);
 }
-button {
-  margin: 0.2em 0.2em 0.5em 0;
+
+body > div:first-child p { margin: 0; }
+
+body > div:first-child strong {
+  color: var(--bpc-text);
+  font-size: 18px;
+  font-weight: 650;
+  line-height: 1.6;
+}
+
+/* 分组卡片 */
+#custom-prompt,
+#update-prompt,
+#fetch-prompt,
+#opt-in-prompt {
+  margin: 0 0 var(--bpc-sp-3);
+  padding: var(--bpc-sp-4);
+  background: var(--bpc-surface);
+  border: 1px solid var(--bpc-border);
+  border-radius: var(--bpc-radius);
+  box-shadow: var(--bpc-shadow-sm);
+}
+
+#custom-prompt p,
+#update-prompt p,
+#fetch-prompt p,
+#opt-in-prompt p {
+  margin: 0 0 10px;
+  color: var(--bpc-muted);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+#custom-prompt > p:first-child,
+#update-prompt > p:first-child,
+#fetch-prompt > p:first-child,
+#opt-in-prompt > p:first-child {
+  margin-bottom: var(--bpc-sp-3);
+  padding-bottom: var(--bpc-sp-2);
+  border-bottom: 1px solid var(--bpc-border);
+}
+
+#custom-prompt > p:first-child strong,
+#update-prompt > p:first-child strong,
+#fetch-prompt > p:first-child strong,
+#opt-in-prompt > p:first-child strong {
+  color: var(--bpc-text);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+/* 启用状态徽标（内容由 opt-in.js 写入「是 / 否」） */
+span[id$="-enabled"] {
+  display: inline-block;
+  min-width: 34px;
+  padding: 1px 10px;
+  border: 1px solid var(--bpc-border);
+  border-radius: 999px;
+  background: var(--bpc-surface-2);
+  color: var(--bpc-text);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  vertical-align: 1px;
+}
+
+/* JS 写入前不显示空徽标 */
+span[id$="-enabled"]:empty { display: none; }
+
+/* 每组按钮 */
+#custom-container,
+#update-container,
+#fetch-container,
+#optin-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bpc-sp-2);
+  margin-top: var(--bpc-sp-2);
+}
+
+#custom-enable,
+#update-enable,
+#fetch-enable,
+#optin-enable {
+  background: var(--bpc-primary);
+  border-color: var(--bpc-primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+#custom-enable:hover,
+#update-enable:hover,
+#fetch-enable:hover,
+#optin-enable:hover {
+  background: var(--bpc-primary-hover);
+  border-color: var(--bpc-primary-hover);
+  color: #fff;
+}
+
+#custom-disable,
+#update-disable,
+#fetch-disable,
+#optin-disable {
+  color: var(--bpc-muted);
+}
+
+/* 原页面 #opt-in-prompt 的结束标签缺失，浏览器会把底部按钮栏
+   收进这最后一张卡片；这里按「卡片页脚」处理，无需改动 HTML 结构。 */
+#opt-in-prompt .bpc-actions {
+  margin: var(--bpc-sp-4) calc(-1 * var(--bpc-sp-4)) calc(-1 * var(--bpc-sp-4));
+  padding: var(--bpc-sp-3) var(--bpc-sp-4);
+  border-top: 1px solid var(--bpc-border);
+  border-radius: 0 0 var(--bpc-radius) var(--bpc-radius);
+  background: var(--bpc-surface-2);
+}
+
+@media (max-width: 640px) {
+  #custom-prompt, #update-prompt, #fetch-prompt, #opt-in-prompt {
+    padding: var(--bpc-sp-3);
+  }
+
+  #opt-in-prompt .bpc-actions {
+    margin: var(--bpc-sp-3) calc(-1 * var(--bpc-sp-3)) calc(-1 * var(--bpc-sp-3));
+    padding: var(--bpc-sp-3);
+  }
+
+  #custom-container, #update-container, #fetch-container, #optin-container,
+  #opt-in-prompt .bpc-actions { gap: 6px; }
+
+  #opt-in-prompt .bpc-actions > small { flex: 1 1 auto; }
+  #opt-in-prompt .bpc-actions button { width: 100%; }
 }

@@ -1,25 +1,486 @@
-html, body {
-  font-size: 100%;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+/* ==========================================================================
+   Bypass Paywalls Clean - 统一界面样式（表现层）
+   被 options.html / popup.html / options_custom.html /
+   options_excluded.html / optin/opt-in.html 共同引用。
+
+   约定：仅定义视觉表现，不修改任何功能元素、ID、事件与数据流向。
+   注意：options.js / options_custom.js 的搜索过滤依赖内联
+   item.style.display = 'block' | 'none'，opt-in.js 依赖
+   fetch_prompt.style = 'display: none'，因此这里绝不以 !important
+   改写列表项与 #fetch-prompt 的 display。
+   ========================================================================== */
+
+/* ---------- 1. 设计令牌 ---------- */
+:root {
+  color-scheme: light dark;
+
+  --bpc-bg: #f3f6fa;
+  --bpc-surface: #ffffff;
+  --bpc-surface-2: #f7f9fc;
+  --bpc-border: #dce3ec;
+  --bpc-border-strong: #c4cddd;
+  --bpc-text: #1e293b;
+  --bpc-muted: #64748b;
+
+  --bpc-primary: #2f6fdb;
+  --bpc-primary-hover: #255bc0;
+  --bpc-primary-soft: #e9f1fd;
+
+  --bpc-danger: #c43d3d;
+  --bpc-danger-soft: #fdeeee;
+  --bpc-warn: #9a5b0c;
+  --bpc-warn-soft: #fff5e6;
+  --bpc-success: #15803d;
+  --bpc-success-soft: #eaf7ef;
+
+  --bpc-focus: rgba(47, 111, 219, .35);
+  --bpc-shadow-sm: 0 1px 2px rgba(16, 24, 40, .06);
+  --bpc-shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 6px 16px rgba(16, 24, 40, .06);
+
+  --bpc-sp-1: 4px;
+  --bpc-sp-2: 8px;
+  --bpc-sp-3: 12px;
+  --bpc-sp-4: 16px;
+  --bpc-sp-5: 24px;
+  --bpc-sp-6: 32px;
+
+  --bpc-radius: 8px;
+  --bpc-radius-sm: 6px;
+
+  --bpc-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei",
+              "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", sans-serif;
+  --bpc-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
 }
 
-#bypass_sites label, #add_site label, #excluded_sites label {
-  display: block;
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --bpc-bg: #151a21;
+    --bpc-surface: #1d242e;
+    --bpc-surface-2: #232c38;
+    --bpc-border: #313c4a;
+    --bpc-border-strong: #435166;
+    --bpc-text: #e5ebf3;
+    --bpc-muted: #97a6b8;
+
+    --bpc-primary: #5b8def;
+    --bpc-primary-hover: #74a0f5;
+    --bpc-primary-soft: #22314c;
+
+    --bpc-danger: #ef7b75;
+    --bpc-danger-soft: #3a2427;
+    --bpc-warn: #e3b26a;
+    --bpc-warn-soft: #3a2f1d;
+    --bpc-success: #6cc48f;
+    --bpc-success-soft: #1f3528;
+
+    --bpc-focus: rgba(91, 141, 239, .5);
+    --bpc-shadow-sm: 0 1px 2px rgba(0, 0, 0, .3);
+    --bpc-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 6px 16px rgba(0, 0, 0, .25);
+  }
 }
 
-* {
+/* ---------- 2. 基础与排版层级 ---------- */
+*, *::before, *::after {
   box-sizing: border-box;
 }
-a {
-  color: black;
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
 }
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body, button, a, input, select, textarea {
-    background-color: #313131;
-    color: #bfbfbf;
+
+body {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--bpc-sp-5) var(--bpc-sp-5) 48px;
+  background: var(--bpc-bg);
+  color: var(--bpc-text);
+  font-family: var(--bpc-font);
+  font-size: 14px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  margin: 0 0 var(--bpc-sp-3);
+  color: var(--bpc-text);
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+h1 {
+  font-size: 22px;
+  letter-spacing: -.01em;
+  padding-bottom: var(--bpc-sp-3);
+  border-bottom: 1px solid var(--bpc-border);
+}
+
+h2 { font-size: 19px; }
+h3 { font-size: 15px; margin-top: var(--bpc-sp-5); }
+h4 { font-size: 14px; }
+
+h1 small {
+  display: inline-block;
+  margin-left: var(--bpc-sp-2);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--bpc-muted);
+}
+
+#version {
+  font-family: var(--bpc-mono);
+  font-size: 12px;
+}
+
+#version_new a, #version_new {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+p { margin: 0 0 var(--bpc-sp-3); }
+
+hr {
+  height: 0;
+  border: 0;
+  border-top: 1px solid var(--bpc-border);
+  margin: var(--bpc-sp-4) 0 var(--bpc-sp-2);
+}
+
+a {
+  color: var(--bpc-primary);
+  text-decoration: none;
+}
+
+a:hover { text-decoration: underline; }
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--bpc-focus);
+  outline-offset: 2px;
+}
+
+small { font-size: 12px; }
+
+/* ---------- 3. 信息说明区 ---------- */
+.bpc-intro {
+  margin: var(--bpc-sp-4) 0;
+  padding: var(--bpc-sp-3) var(--bpc-sp-4);
+  background: var(--bpc-surface);
+  border: 1px solid var(--bpc-border);
+  border-left: 3px solid var(--bpc-primary);
+  border-radius: var(--bpc-radius);
+  box-shadow: var(--bpc-shadow-sm);
+  color: var(--bpc-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.bpc-intro a { font-weight: 500; }
+
+/* 说明卡开头用于撑行的裸 <br> 交由内边距接管，避免首行留白 */
+.bpc-intro > br:first-child { display: none; }
+
+/* 纯标题分段：与说明卡区分，减轻视觉重量 */
+.bpc-section {
+  margin: var(--bpc-sp-5) 0 var(--bpc-sp-2);
+  padding-bottom: var(--bpc-sp-2);
+  border-bottom: 1px solid var(--bpc-border);
+}
+
+.bpc-section h3 { margin: 0; }
+
+/* ---------- 4. 工具栏与操作区 ---------- */
+.bpc-toolbar,
+.bpc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bpc-sp-2);
+  margin: var(--bpc-sp-4) 0;
+}
+
+.bpc-actions {
+  margin-top: var(--bpc-sp-5);
+  padding-top: var(--bpc-sp-4);
+  border-top: 1px solid var(--bpc-border);
+}
+
+/* 由 flex 接管换行，隐藏原先用于布局的裸 <br> */
+.bpc-toolbar > br,
+.bpc-actions > br { display: none; }
+
+/* 原页面用 <small> 包裹按钮来缩小尺寸，这里统一回来 */
+.bpc-toolbar small,
+.bpc-actions small {
+  display: inline-flex;
+  font-size: inherit;
+}
+
+/* ---------- 5. 按钮 ---------- */
+button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 6px 13px;
+  border: 1px solid var(--bpc-border-strong);
+  border-radius: var(--bpc-radius-sm);
+  background: var(--bpc-surface);
+  color: var(--bpc-text);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: var(--bpc-shadow-sm);
+  transition: background-color .16s ease, border-color .16s ease,
+              color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+
+button:hover {
+  background: var(--bpc-primary-soft);
+  border-color: var(--bpc-primary);
+  color: var(--bpc-primary);
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* <button><a> 结构：链接继承按钮配色，避免出现第二套文字样式 */
+button a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button a:hover { text-decoration: none; }
+
+small button { font-size: 13px; }
+
+/* 主操作 */
+#save, #save_top {
+  background: var(--bpc-primary);
+  border-color: var(--bpc-primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+#save:hover, #save_top:hover {
+  background: var(--bpc-primary-hover);
+  border-color: var(--bpc-primary-hover);
+  color: #fff;
+}
+
+/* 破坏性操作 */
+#delete, #delete_default, #clear_sites_updated {
+  background: var(--bpc-danger-soft);
+  border-color: var(--bpc-danger-soft);
+  color: var(--bpc-danger);
+}
+
+#delete:hover, #delete_default:hover, #clear_sites_updated:hover {
+  background: var(--bpc-danger);
+  border-color: var(--bpc-danger);
+  color: #fff;
+}
+
+/* ---------- 6. 表单控件 ---------- */
+input[type="text"],
+input[type="file"],
+textarea,
+select {
+  max-width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--bpc-border-strong);
+  border-radius: var(--bpc-radius-sm);
+  background: var(--bpc-surface);
+  color: var(--bpc-text);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--bpc-primary);
+  box-shadow: 0 0 0 3px var(--bpc-focus);
+}
+
+::placeholder {
+  color: var(--bpc-muted);
+  opacity: .85;
+}
+
+input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin: 0 8px 0 0;
+  vertical-align: -2px;
+  accent-color: var(--bpc-primary);
+  cursor: pointer;
+}
+
+input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--bpc-focus);
+  outline-offset: 2px;
+}
+
+label { cursor: pointer; }
+
+textarea {
+  display: block;
+  width: 100%;
+  min-height: 110px;
+  resize: vertical;
+  font-family: var(--bpc-mono);
+  font-size: 12.5px;
+  line-height: 1.65;
+}
+
+select[size] {
+  width: 100%;
+  padding: var(--bpc-sp-1);
+}
+
+select[size] option {
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+#search { min-width: 220px; }
+
+/* ---------- 7. 列表与卡片容器 ---------- */
+#bypass_sites,
+#add_site,
+#custom_sites,
+#excluded_sites {
+  margin: var(--bpc-sp-3) 0;
+  padding: var(--bpc-sp-3);
+  background: var(--bpc-surface);
+  border: 1px solid var(--bpc-border);
+  border-radius: var(--bpc-radius);
+  box-shadow: var(--bpc-shadow-sm);
+}
+
+/* 保持 display:block；搜索过滤写入的内联 display 优先级更高，不会被破坏 */
+#bypass_sites label,
+#add_site label,
+#custom_sites label,
+#excluded_sites label {
+  display: block;
+  padding: 5px 10px;
+  border-radius: var(--bpc-radius-sm);
+  line-height: 1.9;
+  transition: background-color .14s ease;
+}
+
+#bypass_sites label:hover,
+#add_site label:hover,
+#custom_sites label:hover,
+#excluded_sites label:hover {
+  background: var(--bpc-surface-2);
+}
+
+/* 分组标题（由 JS 追加 font-weight: bold 的 label） */
+#bypass_sites label[style*="bold"] {
+  color: var(--bpc-muted);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+#bypass_sites label[style*="bold"] hr { margin-top: var(--bpc-sp-3); }
+
+/* ---------- 8. 状态与提示 ---------- */
+[id^="status"],
+#error,
+#perm-custom,
+#nofix,
+#custom-update {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* 空状态不占位：JS 只写入文本，内容出现时 :empty 自动失配并恢复显示 */
+[id^="status"]:empty,
+#error:empty,
+#perm-custom:empty,
+#nofix:empty,
+#custom-update:empty {
+  display: none;
+}
+
+/* mv3 权限提示位于 flex 按钮组内：该 span 在原页面中未闭合，
+   内部带有空白文本节点（:empty 不成立），故只以文字着色提示，
+   避免空内容时渲染出一枚无意义的色块。 */
+#mv3-remove-perm-msg {
+  flex: 0 1 auto;
+  min-height: 0;
+  color: var(--bpc-warn);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+[id^="status"]:not(:empty) {
+  display: inline-block;
+  margin: var(--bpc-sp-2) 0;
+  padding: 6px 12px;
+  border: 1px solid var(--bpc-success-soft);
+  border-radius: var(--bpc-radius-sm);
+  background: var(--bpc-success-soft);
+  color: var(--bpc-success);
+}
+
+#error:not(:empty),
+#perm-custom:not(:empty),
+#nofix:not(:empty),
+#custom-update:not(:empty) {
+  display: block;
+  margin: var(--bpc-sp-2) 0;
+  padding: 8px 12px;
+  border: 1px solid var(--bpc-warn-soft);
+  border-left: 3px solid var(--bpc-warn);
+  border-radius: var(--bpc-radius-sm);
+  background: var(--bpc-warn-soft);
+  color: var(--bpc-warn);
+}
+
+/* ---------- 9. 响应式 ---------- */
+@media (max-width: 640px) {
+  body { padding: var(--bpc-sp-4) var(--bpc-sp-3) 40px; }
+  h1 { font-size: 19px; }
+  h1 small { display: block; margin: var(--bpc-sp-1) 0 0; }
+  .bpc-intro { padding: 10px 12px; }
+  .bpc-toolbar, .bpc-actions { gap: 6px; }
+  .bpc-toolbar > button, .bpc-actions > button,
+  .bpc-toolbar > small, .bpc-actions > small { flex: 1 1 auto; }
+  .bpc-toolbar button, .bpc-actions button { width: 100%; }
+  #search { width: 100%; min-width: 0; }
+  #bypass_sites, #add_site, #custom_sites, #excluded_sites { padding: var(--bpc-sp-2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
   }
 }

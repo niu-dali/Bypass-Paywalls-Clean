@@ -10,13 +10,13 @@
   <h1 id="top">Options | <small><span id="version"></span><br><span id="version_new"></span></small></h1>
   更新日志 <a href="/changelog.txt" target="_blank">本地</a> 或 <a href="https://gitflic.ru/project/magnolia1234/bypass-paywalls-chrome-clean/blob/raw?file=changelog.txt" target="_blank">在线</a>
   | 帮助 <a href="/README.html" target="_blank">本地</a> 或 <a href="https://gitflic.ru/project/magnolia1234/bypass-paywalls-chrome-clean" target="_blank">在线</a>
-  <div style="width:90%;">
+  <div class="bpc-intro">
     <br>已勾选的部分网站会清除其 Cookie；对于你拥有账号的网站，请取消勾选（或将其添加到排除列表）。<br>
     如果你还想为未列出的网站屏蔽通用付费墙脚本，需要在「选项启用」中开启自定义站点（需要访问所有网站的主机权限）。
     <!-- To view some sites (check list) a necessary cookie has to be set (enable this in opt-in). -->
   </div>
   <br>
-  <div style='float:left'>
+  <div class="bpc-toolbar">
     <small><button id="save_top">保存</button></small>
     <small><button><a href="options_custom.html" style="text-decoration:none;color:inherit">自定义站点</a></button></small>
     <small><button><a href="optin/opt-in.html" style="text-decoration:none;color:inherit">选项启用</a></button></small>
@@ -27,8 +27,8 @@
     <input id="search" type="text" size="30" placeholder="搜索（域名）名称……">
   </div>
   <div style="clear:both;"></div>
-  <strong style="color:red;"><div id="perm-custom"></div></strong>
-  <strong style="color:red;"><div id="nofix"></div></strong>
+  <strong><div id="perm-custom"></div></strong>
+  <strong><div id="nofix"></div></strong>
   <div style="clear:both;"></div>
   <br>
   <div id="status_top"></div>
@@ -36,7 +36,7 @@
   <br>
   <div id="status"></div>
   <div id="error"></div>
-  <span style='float:left;padding-bottom:50px'>
+  <span class="bpc-actions">
     <button id="save">保存</button>
     <button id="select-all">全选</button>
     <button id="select-none">全不选</button>

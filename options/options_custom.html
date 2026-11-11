@@ -9,7 +9,7 @@
 <body>
   <h2>自定义站点</h2>
   <div id="custom-update"></div>
-  <div style="width:90%;">
+  <div class="bpc-intro">
     要添加新站点，请输入唯一的标题/域名（不含 www.）。<br>
     在下方选择选项（<a href="/README.html#add-custom-site" target="_blank">查看帮助</a>）；示例可从在线导入。<br>
     自定义站点（新增）会在<small><button><a href="options.html" style="text-decoration:none;color:inherit">选项</a></button></small>中自动启用（默认会屏蔽 Cookie，除非你启用 allow_cookies）。<br>
@@ -22,7 +22,7 @@
   <div id='add_site'></div>
     <br>
   <div id="status_add"></div>
-  <span style='float:left;padding-bottom:5px'>
+  <span class="bpc-toolbar">
     <button id="add">添加</button>
   </span>
   <div style="clear:both;"></div>
@@ -34,7 +34,7 @@
   <div id='custom_sites'></div>
     <br>
   <div id="status_delete"></div>
-  <span style='float:left;padding-bottom:5px'>
+  <span class="bpc-toolbar">
     <button id="delete">删除</button>
     <button id="edit">编辑（重新添加）</button>
     <button id="delete_default">删除<br>默认（*）站点</button>
@@ -44,7 +44,7 @@
     已授予权限（自定义列表 + 更新站点全部）：<strong><span id="perm-custom"></span></strong>
   </span>
   <div style="clear:both;"></div>
-  <div style="width:90%;">
+  <div class="bpc-intro">
     <h3>Json 文件</h3>
     你可以编辑/排序文本框内容并保存（仅当 JSON 文本有效时）。
     清空并保存以重置。你也可以为新安装导出/导入 JSON 文本。
@@ -54,7 +54,7 @@
     <br>
   <div id="status"></div>
   <div id="error"></div>
-  <span style='float:left;padding-bottom:50px'>
+  <span class="bpc-actions">
     <button id="save">保存</button>
     <button id="sort">排序</button>
     <button id="export">导出</button>
