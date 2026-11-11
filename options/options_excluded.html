@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>绕过付费墙 纯净版 - 排除站点</title>
+  <link rel="stylesheet" href="options_all.css"/>
+</head>
+<body>
+  <h2>排除站点</h2>
+  <div style="width:90%;">
+    将需要排除的站点/域名（用于你的订阅）以逗号分隔的列表添加（会自动去除 www. 前缀和空格）。<br>
+    你也可以排除在选项中被归为一组的特定域名。<br>
+    在选项中已勾选的站点将被忽略（以便仍可“全选”）。<br>
+  </div>
+  <div style="clear:both;"></div>
+  <div style="width:90%;">
+    <h3>站点</h3>
+  </div>
+  <br>
+  <div id='excluded_sites'></div>
+    <br>
+  <div id="status"></div>
+  <div id="error"></div>
+  <span style='float:left;padding-bottom:50px'>
+    <button id="save">保存</button>
+    <button id="sort">排序</button>
+    <button><a href="options.html" style="text-decoration:none;color:inherit">选项</a></button>
+  </span>
+
+ <script src="options_excluded.js"></script>
+</body>
+</html>

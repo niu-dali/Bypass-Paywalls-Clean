@@ -1,0 +1,61 @@
+{
+  "Australia News Corp": {
+    "domain": "###_au_news_corp",
+    "group": [
+      "adelaidenow.com.au",
+      "codesports.com.au",
+      "couriermail.com.au",
+      "dailytelegraph.com.au",
+      "heraldsun.com.au",
+      "theaustralian.com.au",
+      "weeklytimesnow.com.au"
+    ],
+    "allow_cookies": 1,
+    "upd_version": "4.4.9.2"
+  },
+  "Harvard Business Review": {
+    "domain": "hbr.org",
+    "allow_cookies": 1,
+	"block_regex": "\\.tinypass\\.com",
+    "upd_version": "4.4.8.6"
+  },
+  "Haymarket Media Group": {
+    "domain": "###_uk_haymarket",
+    "group": [],
+    "allow_cookies": 1,
+    "nofix": 1,
+    "exception": [{
+        "domain": ["campaignchina.com", "campaignjapan.com", "endseurope.com", "performancemarketingworld.com"],
+        "useragent": "googlebot"
+      }
+    ],
+    "upd_version": "4.4.8.5"
+  },
+  "Nederlands Dagblad (removed)": {
+    "domain": "nd.nl",
+    "allow_cookies": 1,
+    "nofix": 1,
+    "upd_version": "4.4.9.1"
+  },
+  "Puck.news": {
+    "domain": "puck.news",
+    "allow_cookies": 1,
+    "ld_archive_is": "div.puck-article-page__paywall-slot|article",
+    "upd_version": "4.4.9.1"
+  },
+  "Tampa Bay Times": {
+    "domain": "tampabay.com",
+    "allow_cookies": 1,
+    "block_regex": "\\.sophi\\.io",
+    "upd_version": "4.4.8.5"
+  },
+  "The Economist (removed)": {
+    "domain": "economist.com",
+    "allow_cookies": 1,
+    "block_regex": "(\\/zephr\\/feature|\\.economist\\.com\\/(latest\\/wall-ui|script)\\.js)",
+    "nofix": 1,
+    "cs_block": 1,
+    "cs_code": [{"cond": "html,body", "set_attrib":"style|overflow: visible !important"}],
+    "upd_version": "4.4.8.7"
+  }
+}

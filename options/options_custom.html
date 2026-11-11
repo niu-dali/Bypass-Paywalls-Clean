@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>绕过付费墙 纯净版 - 自定义站点</title>
+  <link rel="stylesheet" href="options_all.css"/>
+</head>
+<body>
+  <h2>自定义站点</h2>
+  <div id="custom-update"></div>
+  <div style="width:90%;">
+    要添加新站点，请输入唯一的标题/域名（不含 www.）。<br>
+    在下方选择选项（<a href="/README.html#add-custom-site" target="_blank">查看帮助</a>）；示例可从在线导入。<br>
+    自定义站点（新增）会在<small><button><a href="options.html" style="text-decoration:none;color:inherit">选项</a></button></small>中自动启用（默认会屏蔽 Cookie，除非你启用 allow_cookies）。<br>
+    如果你想使用自定义站点（用于未列出的网站），请在<small><button><a href="optin/opt-in.html" style="text-decoration:none;color:inherit">选项启用</a></button></small>中开启
+    <strong>自定义站点已启用：<span id="custom-enabled"></span></strong><br>
+    你也可以仅为自定义站点及发布后新增的站点请求主机权限（见下方）。<br>
+    若缺少主机权限，扩展图标角标会显示“C”（若可从在线导入自定义站点则显示“+C”；若无修复方案则显示 X）。
+    <br><br>
+  </div>
+  <div id='add_site'></div>
+    <br>
+  <div id="status_add"></div>
+  <span style='float:left;padding-bottom:5px'>
+    <button id="add">添加</button>
+  </span>
+  <div style="clear:both;"></div>
+  <div>
+    <h3>自定义站点列表</h3>
+     * 已在默认列表中（重复域名）
+    <br>
+  </div>
+  <div id='custom_sites'></div>
+    <br>
+  <div id="status_delete"></div>
+  <span style='float:left;padding-bottom:5px'>
+    <button id="delete">删除</button>
+    <button id="edit">编辑（重新添加）</button>
+    <button id="delete_default">删除<br>默认（*）站点</button>
+    <button id="perm_request">请求<br>权限</button>
+    <button id="perm_remove">移除<br>权限</button>
+    <input id="search" type="text" size="30" placeholder="搜索（域名）名称……"><br><br>
+    已授予权限（自定义列表 + 更新站点全部）：<strong><span id="perm-custom"></span></strong>
+  </span>
+  <div style="clear:both;"></div>
+  <div style="width:90%;">
+    <h3>Json 文件</h3>
+    你可以编辑/排序文本框内容并保存（仅当 JSON 文本有效时）。
+    清空并保存以重置。你也可以为新安装导出/导入 JSON 文本。
+  </div>
+  <br>
+  <div id='bypass_sites'></div>
+    <br>
+  <div id="status"></div>
+  <div id="error"></div>
+  <span style='float:left;padding-bottom:50px'>
+    <button id="save">保存</button>
+    <button id="sort">排序</button>
+    <button id="export">导出</button>
+    <button id="import">导入文件</button>
+    <button id="import_local">本地导入</button>
+    <button id="import_online">在线导入</button>
+    <input type="file" id="importInput" accept=".txt, .json" style="display:none"/>
+    <button><a href="options.html" style="text-decoration:none;color:inherit">选项</a></button>
+  </span>
+
+ <script src="../sites.js"></script>
+ <script src="options_custom.js"></script>
+</body>
+</html>

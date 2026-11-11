@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>绕过付费墙 纯净版（选项启用）</title>
+    <link rel="stylesheet" href="../options_all.css"/>
+    <link rel="stylesheet" href="opt-in.css"/>
+    <script src="opt-in.js"></script>
+  </head>
+
+  <body>
+    <div>
+      <p><strong>绕过付费墙 纯净版<br>用于额外功能/授权的启用选项。</strong></p>
+      </div>
+    </div>
+    <div id="custom-prompt">
+      <p><strong>自定义站点启用</strong></p>
+      <p>如果你想启用<a href="../options_custom.html">自定义站点</a>（用于新网站），并可选择清除未列出网站的 Cookie / 屏蔽通用付费墙脚本：</br>
+      <p>自定义站点已启用：<span id="custom-enabled"></span></p>
+      <div id="custom-container">
+        <button id="custom-enable">启用</button>
+        <button id="custom-disable">禁用</button>
+        <span id="mv3-remove-perm-msg" style="color: red;">
+      </div>
+    </div>
+    <div id="update-prompt">
+      <p><strong>检查更新启用</strong></p>
+      <p>在启动时及打开选项时检查版本更新：</br>
+      <p>检查更新已启用：<span id="update-enabled"></span></p>
+      <div id="update-container">
+        <button id="update-enable">启用</button>
+        <button id="update-disable">禁用</button>
+      </div>
+    </div>
+    <div id="fetch-prompt">
+      <p><strong>抓取内容授权启用</strong></p>
+      部分网站（见选项）会从外部站点（如 archive.is）抓取完整的文章内容。</br>
+      这需要将文章链接“传输”到该外部站点（插件不会收集任何数据）。</br>
+      若关闭“抓取内容授权”（默认设置），插件将无法在这些网站上生效。</br>
+      </p>
+      <p>抓取已启用：<span id="fetch-enabled"></span></p>
+      <div id="fetch-container">
+        <button id="fetch-enable">启用</button>
+        <button id="fetch-disable">禁用</button>
+      </div>
+    </div>
+    <div id="opt-in-prompt">
+      <p><strong>设置 Cookie 授权启用</strong></p>
+      <p>部分网站需要设置一个必要的 Cookie（该 Cookie 不包含任何关于用户或设备的个人信息）：<br><br>
+      无</p>
+      <p>设置 Cookie 授权已启用：<span id="opt-in-enabled"></span></p>
+      <div id="optin-container">
+        <button id="optin-enable">启用</button>
+        <button id="optin-disable">禁用</button>
+    </div>
+	<p>
+  <div style='float:left;padding-bottom:50px'>
+    <small><button><a href="../options.html" style="text-decoration:none;color:inherit">选项</a></button></small>
+    <small><button><a href="../options_custom.html" style="text-decoration:none;color:inherit">自定义站点</a></button></small>
+    <small><button id="button-close">关闭</button></small>
+  </div>
+  </p>
+  </body>
+
+</html>
