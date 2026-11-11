@@ -7,12 +7,24 @@ var navigator_ua_mobile = navigator_ua.toLowerCase().includes('mobile');
 var custom_switch = ((manifestData.optional_permissions && manifestData.optional_permissions.length) || (manifestData.optional_host_permissions && manifestData.optional_host_permissions.length));
 
 // htmlviewer: clean layout
+// chrome://、edge://、extensions:// 等受限页面不允许注入脚本，
+// 否则 scripting.executeScript 返回的 Promise 会 reject（未捕获时报
+// "Uncaught (in promise) Error: Cannot access chrome:// and edge:// URLs"）。
+function isRestrictedUrl(url) {
+  if (!url || url === 'about:blank')
+    return false;
+  return /^(chrome|edge|extensions|chrome-extension|moz-extension|about|view-source|devtools):/i.test(url);
+}
+
 ext_api.tabs.query({
   active: true,
   currentWindow: true
 }, function (tabs) {
-  if (tabs && tabs[0] && ((tabs[0].url && ((tabs[0].url === 'about:blank' && tabs[0].title !== 'about:blank') || tabs[0].url.startsWith('https://codebeautify.org/htmlviewer'))) || (!tabs[0].url && ext_chromium && tabs[0].openerTabId))) {
-    let tabId = tabs[0].id;
+  let tab = tabs && tabs[0];
+  if (!tab || isRestrictedUrl(tab.url))
+    return;
+  if ((tab.url && ((tab.url === 'about:blank' && tab.title !== 'about:blank') || tab.url.startsWith('https://codebeautify.org/htmlviewer'))) || (!tab.url && ext_chromium && tab.openerTabId)) {
+    let tabId = tab.id;
     if (ext_manifest_version === 2) {
       ext_api.tabs.executeScript(tabId, {
         file: '/options/htmlviewer.js'
@@ -25,7 +37,7 @@ ext_api.tabs.query({
       ext_api.scripting.executeScript({
         target: {tabId: tabId},
         files: ["/options/htmlviewer.js"]
-      })
+      }).catch(err => false);
     }
   }
 });
